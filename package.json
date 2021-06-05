@@ -1,0 +1,26 @@
+{
+  "name": "vue-video-renderer",
+  "description": "Library for video editing with code",
+  "version": "0.1.0",
+  "bin": {
+    "vue-video-renderer": "./bin/render.js"    
+  },
+  "scripts": {
+    "example": "cd examples/simple; npm run dev",
+    "renderExample": "cd examples/simple; npm run render --out ../../simple.mp4",
+    "intro": "cd examples/intro; npm run dev",
+    "renderIntro": "cd examples/intro; npm run render --out ../../intro.mp4"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.12",
+    "vue": "^3.0.5"
+  },
+  "devDependencies": {
+    "vue-video-renderer": "^0.1.0",
+    "@vitejs/plugin-vue": "^1.2.3",
+    "@vue/compiler-sfc": "^3.0.5",
+    "playwright": "^1.11.1",
+    "vite": "^2.3.5",
+    "yargs": "^17.0.1"
+  }
+}

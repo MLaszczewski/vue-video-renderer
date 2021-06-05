@@ -1,0 +1,7 @@
+node_modules
+*.mp4
+*.m4v
+examples/*/dist
+examples/*/node_modules
+examples/*/*.mp4
+examples/*/*.m4v
