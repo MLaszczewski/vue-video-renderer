@@ -1,6 +1,6 @@
 # Vue Video Renderer
 
-![demo](https://github.com/MLaszczewski/vue-video-renderer/raw/master/examples/intro/out.gif)
+[![demo](https://github.com/MLaszczewski/vue-video-renderer/raw/master/examples/intro/out.gif)](https://youtu.be/Pfxqp1IxI4w)
 
 I wanted to create a nice recording from automated tests and scenarios written in code. I could not find any nice solution for rendering and editing movies in JavaScript.
 
