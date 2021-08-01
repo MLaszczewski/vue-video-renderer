@@ -22,4 +22,3 @@ Run examples with `npm run dev`, and render with `npm run render`
 ## TODO:
 
 - Offline audio mixer for audio track rendering.
-- Playback controls.

@@ -1,13 +1,13 @@
 <template>
   <div id="video" @click="onClick" ref="output">
-    <img 
+    <img
       alt="Vue logo" src="./assets/logo.png"
       :style="{
         opacity: time-4.5,
         filter: time > 4.5 ? `blur(${40-(time-4.5)*60}px)` : ''
       }"
     />
-    <Video     
+    <Video
       src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
       :time="time+250"
       :style="{
@@ -15,10 +15,10 @@
         visibility: time < 2.5 ? 'visible' : 'hidden',
         left: `${-70+time*10}%`,
         top: 0,
-        width: `${200-time*10}%`,         
+        width: `${200-time*10}%`,
       }">
     </Video>
-    <Video    
+    <Video
       v-if="time > 1.6"
       src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
       :time="time+260"
@@ -29,17 +29,18 @@
         opacity: 1 - (time - 4),
         top: 0,
         width: `150%`,
-        filter: `blur(${(time-4.1)*3}px)` 
+        filter: `blur(${(time-4.1)*3}px)`
       }">
     </Video>
   </div>
+  <VideoControls id="controls"></VideoControls>
 </template>
 
 <script>
-import { state, Video } from "vue-video-renderer"
+import { state, Video, VideoControls } from "vue-video-renderer"
 
 export default {
-  components: { Video },
+  components: { Video, VideoControls },
   mounted() {
     const output = this.$refs.output
     state.width = output.clientWidth
@@ -80,5 +81,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
+}
+#controls {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+
 }
 </style>
