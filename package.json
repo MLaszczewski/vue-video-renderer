@@ -12,15 +12,15 @@
     "renderIntro": "cd examples/intro; npm run render --out ../../intro.mp4"
   },
   "dependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.0.12",
-    "vue": "^3.0.5"
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "vue": "^3.2.4"
   },
   "devDependencies": {
-    "vue-video-renderer": "^0.1.0",
-    "@vitejs/plugin-vue": "^1.2.3",
-    "@vue/compiler-sfc": "^3.0.5",
-    "playwright": "^1.11.1",
-    "vite": "^2.3.5",
-    "yargs": "^17.0.1"
+    "vue-video-renderer": "^0.1.1",
+    "@vitejs/plugin-vue": "^1.4.0",
+    "@vue/compiler-sfc": "^3.2.4",
+    "playwright": "^1.15.0-next-alpha-aug-20-2021",
+    "vite": "^2.5.0",
+    "yargs": "^17.1.1"
   }
 }
