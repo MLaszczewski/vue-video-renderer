@@ -9,8 +9,8 @@ async function getFrame(page, time) {
     let done = false
     window.state.time = time
     const interval = setInterval(() => {
-      if(done) return    
-      if(window.state.notReady.length == 0) {      
+      if(done) return
+      if(window.state.notReady.length == 0) {
         clearInterval(interval)
         done = true
         resolve()
@@ -20,7 +20,7 @@ async function getFrame(page, time) {
       if(done) return
       clearInterval(interval)
       done = true
-      reject(new Error('timeout'))    
+      reject(new Error('timeout'))
     }, 5000)
   }), time)
 
@@ -49,7 +49,7 @@ async function main(argv) {
           width: state.width,
           height: state.height,
           fps: state.fps,
-          length: state.length
+          length: state.lengthd
         })
       }
     }, 10)
@@ -57,7 +57,7 @@ async function main(argv) {
       if(done) return
       clearInterval(interval)
       done = true
-      reject('timeout')    
+      reject('timeout')
     }, 5000)
   }), argv.videoElement)
   page.setViewportSize({ width: options.width, height: options.height })
@@ -91,7 +91,7 @@ async function main(argv) {
   ], {
     stdio: ['pipe', 'inherit', 'inherit']
   })
-  
+
   const timePerFrame = 1 / options.fps
   for(let time = 0; time < options.length; time += timePerFrame) {
     const screenshot = await getFrame(page, time)
@@ -100,9 +100,9 @@ async function main(argv) {
   }
 
   ffmpeg.stdin.end()
-  
+
   browser.close()
-  
+
 }
 
 const argv = require('yargs')
