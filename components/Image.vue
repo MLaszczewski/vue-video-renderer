@@ -28,16 +28,15 @@ export default {
   methods: {
     waitForReady() {
       const image = this.$refs.image
-      if(!image.complete) {      
+      if(!image.complete) {
         if(state.notReady.indexOf(this.uid) == -1) {
           state.notReady.push(this.uid)
         }
       }
     },
     handleLoad() {
-
       const index = state.notReady.indexOf(this.uid)
-      if(index!=-1) state.notReady.splice(index, 1)
+      if(index != -1) state.notReady.splice(index, 1)
     }
   }
 

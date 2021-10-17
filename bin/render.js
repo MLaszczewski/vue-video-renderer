@@ -3,8 +3,10 @@
 const { firefox } = require('playwright')
 const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg')
 const child_process = require('child_process')
+const pRetry = require('p-retry')
 
 async function getFrame(page, time) {
+  console.log("GET FRAME", time)
   await page.evaluate((time) => new Promise((resolve, reject) => {
     let done = false
     window.state.time = time
@@ -20,8 +22,9 @@ async function getFrame(page, time) {
       if(done) return
       clearInterval(interval)
       done = true
-      reject(new Error('timeout'))
-    }, 5000)
+      console.log("NOT READY", window.state.notReady)
+      reject(new Error('getFrameTimeout'))
+    }, 23000)
   }), time)
 
   const buffer = await page.screenshot({ type: 'png' });
@@ -49,7 +52,7 @@ async function main(argv) {
           width: state.width,
           height: state.height,
           fps: state.fps,
-          length: state.lengthd
+          length: state.length
         })
       }
     }, 10)
@@ -92,9 +95,10 @@ async function main(argv) {
     stdio: ['pipe', 'inherit', 'inherit']
   })
 
+
   const timePerFrame = 1 / options.fps
   for(let time = 0; time < options.length; time += timePerFrame) {
-    const screenshot = await getFrame(page, time)
+    const screenshot = await pRetry(() => getFrame(page, time), { retries: 23 })
     if(argv.verbose) console.log("GOT FRAME!", time, '/', options.length)
     ffmpeg.stdin.write(screenshot)
   }

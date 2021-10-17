@@ -39,17 +39,17 @@ export default {
       },
       set(speed) {
         this.playingSpeed = Math.exp(speed/10)
-        //state.time = 1.0 * frame / state.fps
+        state.playingSpeed = this.playingSpeed
       }
     },
     isPlaying() {
       return state.playingSpeed != 0
     },
     time() {
-       return state.time
+       return state.time || 0
     },
     length() {
-      return state.length
+      return state.length || 0
     },
     frame() {
       return state.time * state.fps
