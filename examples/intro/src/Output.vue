@@ -20,17 +20,18 @@
       <EndScene :time="time-8.0"></EndScene>
     </div>
   </div>
+  <VideoControls id="controls" ref="controls"></VideoControls>
 </template>
 
 <script>
-import { state } from "vue-video-renderer"
+import { state, VideoControls } from "vue-video-renderer"
 import TitleScene from "./scenes/TitleScene.vue"
 import ImageScene from "./scenes/ImageScene.vue"
 import VideoScene from "./scenes/VideoScene.vue"
 import EndScene from "./scenes/EndScene.vue"
 
 export default {
-  components: { TitleScene, ImageScene, VideoScene, EndScene },
+  components: { TitleScene, ImageScene, VideoScene, EndScene, VideoControls },
   mounted() {
     const output = this.$refs.output
     state.width = output.clientWidth
@@ -84,6 +85,11 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+#controls {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
