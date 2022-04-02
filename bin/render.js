@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { firefox } = require('playwright')
+const { firefox, chromium } = require('playwright')
 const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg')
 const child_process = require('child_process')
 const pRetry = require('p-retry')
@@ -34,9 +34,9 @@ async function getFrame(page, time) {
 async function main(argv) {
   if(argv.verbose) console.log("FFMPEG VERSION", ffmpegInstaller.version, ffmpegInstaller.path)
 
-  const browser = await firefox.launch({
+  const browser = await chromium.launch({
     headless: false,
-    //executablePath: '/usr/bin/chromium'
+    executablePath: '/usr/bin/chromium'
   })
   const page = await browser.newPage()
   await page.goto(argv.url)

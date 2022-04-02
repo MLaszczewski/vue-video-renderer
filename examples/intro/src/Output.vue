@@ -69,6 +69,7 @@ export default {
   height: 480px;
   background: black;
   overflow: hidden;
+  z-index: 1
 }
 #video > div {
   position: absolute;
@@ -93,5 +94,6 @@ export default {
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 </style>
