@@ -1,46 +1,46 @@
 <template>
 </template>
 
-<script>
+<script setup>
 
-export default {
-  name: "PreloadImage",
-  props: {
+  import { useVideoRendererState } from "../lib/plugin.js"
+  import { watch, ref, onMounted } from "vue"
+
+  const state = useVideoRendererState()
+
+  const props = defineProps({
     src: {
       type: String,
       required: true
     }
-  },
-  data() {
-    return {
-      uid: Math.random()      
-    }
-  },
-  watch: {
-    src() {
-      this.waitForReady()
-    }
-  },
-  mounted() {
-    this.image = new Image()
-    this.image.src = this.src
-    this.waitForReady()
-  },
-  methods: {
-    waitForReady() {
-      const image = this.image
-      image.onload = () => this.handleLoad()
-      if(!image.complete) {      
-        if(state.notReady.indexOf(this.uid) == -1) {
-          state.notReady.push(this.uid)
-        }
+  })
+  const uid = Math.random()
+
+  const image = ref(null)
+
+  function waitForReady() {
+    image.value.onload = () => handleLoad()
+    if(!image.value.complete) {
+      if(state.notReady.indexOf(uid) == -1) {
+        state.notReady.push(uid)
       }
-    },
-    handleLoad() {
-      const index = state.notReady.indexOf(this.uid)
-      if(index!=-1) state.notReady.splice(index, 1)
     }
   }
 
-}
+  function handleLoad() {
+    const index = state.notReady.indexOf(uid)
+    if(index != -1) state.notReady.splice(index, 1)
+  }
+
+  watch(() => props.src, () => {
+    image.value = new Image()
+    image.value.src = props.src
+    waitForReady()
+  })
+  onMounted(() => {
+    image.value = new Image()
+    image.value.src = props.src
+    waitForReady()
+  })
+
 </script>

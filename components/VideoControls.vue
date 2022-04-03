@@ -14,76 +14,63 @@
   </div>
 </template>
 
-<script>
-import state from "../lib/state.js"
+<script setup>
 
-export default {
-  name: "VideoControls",
-  data () {
-    return {
-      playingSpeed: 1.0
+  import { useVideoRendererState } from "../lib/plugin.js"
+  import { watch, ref, onMounted, computed } from "vue"
+  const state = useVideoRendererState()
+
+  const playingSpeed = ref(1.0)
+
+  const frame = computed(() => state.time * state.fps)
+  const isPlaying = computed(() => state.playingSpeed != 0)
+  const time = computed(() => state.time || 0)
+  const length = computed(() => state.length || 0)
+  const frames = computed(() => state.length * state.fps)
+  const canForward = computed(() => {
+    const step = 1.0 / state.fps
+    return (state.time + step <= state.length)
+  })
+  const canBackward = computed(() => {
+    const step = -1.0 / state.fps
+    return (state.time + step >= 0)
+  })
+
+  const sliderFrame = computed({
+    get() {
+      return frame.value
+    },
+    set(frame) {
+      state.time = 1.0 * frame / state.fps
     }
-  },
-  computed: {
-    sliderFrame: {
-      get() {
-        return this.frame
-      },
-      set(frame) {
-        state.time = 1.0 * frame / state.fps
-      }
+  })
+
+  const sliderSpeed = computed({
+    get() {
+      return Math.log(playingSpeed.value)*10
     },
-    sliderSpeed: {
-      get() {
-        return Math.log(this.playingSpeed)*10
-      },
-      set(speed) {
-        this.playingSpeed = Math.exp(speed/10)
-        state.playingSpeed = this.playingSpeed
-      }
-    },
-    isPlaying() {
-      return state.playingSpeed != 0
-    },
-    time() {
-       return state.time || 0
-    },
-    length() {
-      return state.length || 0
-    },
-    frame() {
-      return state.time * state.fps
-    },
-    frames() {
-      return state.length * state.fps
-    },
-    canForward() {
-      const step = 1.0 / state.fps
-      return (state.time + step <= state.length)
-    },
-    canBackward() {
-      const step = -1.0 / state.fps
-      return (state.time + step >= 0)
+    set(speed) {
+      playingSpeed.value = Math.exp(speed/10)
+      state.playingSpeed = playingSpeed.value
     }
-  },
-  methods: {
-    play() {
-      if(state.time == state.length) state.time = 0
-      state.playingSpeed = this.playingSpeed
-    },
-    pause() {
-      state.playingSpeed = 0
-    },
-    forward() {
-      const step = 1.0 / state.fps
-      if(state.time + step <= state.length) state.time += step
-    },
-    backward() {
-      const step = - 1.0 / state.fps
-      if(state.time + step >= 0) state.time += step
-    }
+  })
+
+  function play() {
+    if(state.time == state.length) state.time = 0
+    state.playingSpeed = playingSpeed.value
   }
-}
+  function pause() {
+    state.playingSpeed = 0
+  }
+  function forward() {
+    const step = 1.0 / state.fps
+    if(state.time + step <= state.length) state.time += step
+  }
+  function backward() {
+    const step = - 1.0 / state.fps
+    if(state.time + step >= 0) state.time += step
+  }
+
 </script>
 
 <style scoped>

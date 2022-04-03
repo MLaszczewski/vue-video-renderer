@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
 import Output from './Output.vue'
+import { videoRendererPlugin } from "vue-video-renderer"
 
-createApp(Output).mount('#app')
+const app = createApp(Output)
+app.use(videoRendererPlugin)
+app.mount('#app')
