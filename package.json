@@ -1,7 +1,7 @@
 {
   "name": "vue-video-renderer",
   "description": "Library for video editing with code",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "bin": {
     "vue-video-renderer": "./bin/render.js"
   },
