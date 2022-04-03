@@ -7,7 +7,8 @@
     "render": "vue-video-renderer --verbose --url http://localhost:3000"
   },
   "dependencies": {
-    "vue": "^3.2.31"
+    "vue": "^3.2.31",
+    "vue-video-renderer": "^0.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",

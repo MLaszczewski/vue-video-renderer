@@ -63,18 +63,6 @@ export default defineConfig(async ({ command, mode }) => {
         { find: 'debug', replacement: 'debug/src/browser.js' },
       ],
     },
-    resolvers: [{
-      fileToRequest(filePath) {
-        console.log('@@@', filePath);
-        if (filePath.startsWith(srcPath)) {
-          return `/@/${path.relative(srcPath, filePath)}`
-        }
-      },
-      requestToFile(publicPath) {
-        if (publicPath.startsWith('/@/')) {
-          return path.join(srcPath, publicPath.replace(/^\/@\//, ''))
-        }
-      },
-    }],
+    resolvers: [],
   }
 })
