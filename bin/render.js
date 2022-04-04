@@ -3,7 +3,6 @@
 const { firefox, chromium } = require('playwright')
 const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg')
 const child_process = require('child_process')
-const pRetry = require('p-retry')
 
 async function getFrame(page, time) {
   console.log("GET FRAME", time)
@@ -95,6 +94,8 @@ async function main(argv) {
     stdio: ['pipe', 'inherit', 'inherit']
   })
 
+  const pRetry = (await import('p-retry')).default
+  console.log("PR", pRetry)
 
   const timePerFrame = 1 / options.fps
   for(let time = 0; time < options.length; time += timePerFrame) {
