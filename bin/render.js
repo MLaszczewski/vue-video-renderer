@@ -14,7 +14,8 @@ async function getFrame(page, time) {
       if(window.state.notReady.length == 0) {
         clearInterval(interval)
         done = true
-        resolve()
+        setTimeout(resolve, 20)
+        //resolve()
       }
     }, 10)
     setTimeout(() => {
